@@ -14,10 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -100,7 +98,7 @@ fun ElfAdventureCard(
                         .aspectRatio(1f)
                         .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
                     placeholder = painterResource(R.drawable.default_elf),
-                    error = painterResource(R.drawable.default_elf_error),
+                    error = painterResource(R.drawable.default_elf),
                     onError = {
                         Log.e("CoilError", "Error cargando imagen:")
                     }
