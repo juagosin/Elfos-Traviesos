@@ -18,7 +18,7 @@ fun ElfScaffold(modifier: Modifier) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            //TODO ElfTopAppBar(navController)
+            ElfTopAppBar(navController)
         },
         bottomBar = {
             ElfBottomBar(navController)

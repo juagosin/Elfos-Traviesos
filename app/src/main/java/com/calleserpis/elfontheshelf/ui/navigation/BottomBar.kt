@@ -17,7 +17,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 fun ElfBottomBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    NavigationBar(containerColor = Color.White){
+    NavigationBar(containerColor = Color.Transparent){
         NavigationBarItem(
             label = {
                 Text(text = "Home")
