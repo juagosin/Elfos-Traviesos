@@ -2,6 +2,7 @@ package com.calleserpis.elfontheshelf.ui.navigation
 
 import android.R.id.bold
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -28,6 +29,7 @@ import com.calleserpis.elfontheshelf.R
 fun ElfTopAppBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute: String? = navBackStackEntry?.destination?.route
+    val isDetailRoute = currentRoute?.contains("detail") == true
     TopAppBar(
         title = {
             Text(
@@ -42,6 +44,18 @@ fun ElfTopAppBar(navController: NavHostController) {
             containerColor = Color.Transparent
         ),
         navigationIcon = {
+            Row {
+                if (isDetailRoute) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
                 IconButton(onClick = {
                     navController.popBackStack()
                 }) {
@@ -50,6 +64,7 @@ fun ElfTopAppBar(navController: NavHostController) {
                         contentDescription = null
                     )
                 }
+            }
         }
     )
 }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -23,7 +24,17 @@ fun ElfBottomBar(navController: NavHostController) {
                 Text(text = "Home")
             },
             selected = currentRoute == Screens.Home.route,
-            onClick = { /*TODO*/ },
+            onClick = {
+                navController.navigate(Screens.Home.route){
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+
+                    launchSingleTop = true
+
+                    restoreState = true
+                }
+            },
             icon = {
                 Icon( Screens.Home.icon, contentDescription = "")
             },
