@@ -15,7 +15,10 @@ fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
         modifier = modifier
     ) {
         composable(Screens.Home.route){
-            HomeScreen()
+            HomeScreen(
+                onFavoriteClick = { /*TODO*/ },
+                onCardClick = { /*TODO*/ }
+            )
         }
         composable(Screens.Favourites.route){
             //TODO FavScreen()
