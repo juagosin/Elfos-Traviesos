@@ -21,7 +21,7 @@ fun ElfScaffold(modifier: Modifier) {
             //TODO ElfTopAppBar(navController)
         },
         bottomBar = {
-            //TODO ElfBottomBar(navController)
+            ElfBottomBar(navController)
         },
         floatingActionButton = {
             //TODO ElfFloatingActionButton(navController)
