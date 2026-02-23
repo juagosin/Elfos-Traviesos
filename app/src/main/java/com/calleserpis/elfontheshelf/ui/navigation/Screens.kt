@@ -22,4 +22,9 @@ sealed class Screens{
         override val route: String = "favourites"
         override val icon: ImageVector = Icons.Default.Star
     }
+    @Serializable
+    data object Detail: Screens() {
+        override val route: String = "detail"
+        override val icon: ImageVector = Icons.Default.Star
+    }
 }
