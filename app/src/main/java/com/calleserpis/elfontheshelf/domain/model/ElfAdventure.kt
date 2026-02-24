@@ -8,9 +8,10 @@ data class ElfAdventure (
     val title: String,
     val imageRes: Int,
     val tags: List<ElfTag>,
+    val description: String,
     val isFavorite: Boolean = false
 )
 data class ElfTag(
     val label: String,
-    val colortype: Color
+    val colortype: Long
 )

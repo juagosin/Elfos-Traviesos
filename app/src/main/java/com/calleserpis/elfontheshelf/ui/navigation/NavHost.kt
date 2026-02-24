@@ -12,7 +12,7 @@ import com.calleserpis.elfontheshelf.ui.screens.home.HomeScreen
 fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Detail.route,
+        startDestination = Screens.Home.route,
         modifier = modifier
     ) {
         composable(Screens.Home.route){

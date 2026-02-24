@@ -13,10 +13,10 @@ class ElfAdventureTypeConverters {
 
     @TypeConverter
     fun fromTagList(tags: List<ElfTag>): String =
-        json.encodeToString(tags.map { ElfTagJson(it.label, it.colortype.value.toLong()) })
+        json.encodeToString(tags.map { ElfTagJson(it.label, it.colortype) })
 
     @TypeConverter
     fun toTagList(value: String): List<ElfTag> =
         json.decodeFromString<List<ElfTagJson>>(value)
-            .map { ElfTag(it.label, Color(it.colorLong.toULong())) }
+            .map { ElfTag(it.label, it.colorLong) }
 }

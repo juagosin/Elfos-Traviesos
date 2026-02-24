@@ -26,6 +26,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,15 +37,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.calleserpis.elfontheshelf.R
+import com.calleserpis.elfontheshelf.domain.model.ElfAdventure
 import com.calleserpis.elfontheshelf.domain.model.ElfTag
 
 @Composable
 fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
     onFavoriteClick: (Int) -> Unit,
     onCardClick: (Int) -> Unit,
 ) {
+ val adventures by viewModel.state.collectAsState()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -55,11 +61,15 @@ fun HomeScreen(
         )
     ){
         items(
-            count = 10,
-            key = {it}
-        ){
+            count = adventures.elfAdventures.size
+
+
+        ){index ->
+            val adventure = adventures.elfAdventures.getOrNull(index) ?: return@items
+
+
             ElfAdventureCard(
-                //adventure = adventure,
+                adventure = adventure,
                 onFavoriteClick = { onFavoriteClick(0
                     //adventure.id
                      ) },
@@ -76,7 +86,7 @@ fun HomeScreen(
 
 @Composable
 fun ElfAdventureCard(
-    //adventure: ElfAdventure,
+    adventure: ElfAdventure,
     onFavoriteClick: () -> Unit,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -93,7 +103,7 @@ fun ElfAdventureCard(
             Box(modifier = Modifier.fillMaxWidth()) {
                 AsyncImage(
                     model = "https://i.pinimg.com/236x/6c/f5/46/6cf546f5f8b6b464e8d45d05ad0dfbc9.jpg",//adventure.imageRes,
-                    contentDescription = "Titulo",//adventure.title,
+                    contentDescription = adventure.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -120,23 +130,14 @@ fun ElfAdventureCard(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = "Titulo",//adventure.title,
+                    text = adventure.title,
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                ElfTagRow(tags = listOf(
-                    ElfTag(
-                        label = "Adventure",
-                        colortype = Color.Red
-                    ),
-                    ElfTag(
-                        label = "Adventure",
-                        colortype = Color.Yellow
-                    )
 
-                ))
+                ElfTagRow(tags = adventure.tags)
             }
         }
     }
@@ -160,17 +161,18 @@ fun ElfTagChip(
     tag: ElfTag,
     modifier: Modifier = Modifier
 ) {
+    val color = Color(tag.colortype)
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .clip(RoundedCornerShape(50.dp))
-            .background(tag.colortype.copy(alpha = 0.15f))
+            .background(color.copy(alpha = 0.15f))
             .padding(horizontal = 10.dp, vertical = 4.dp)
     ) {
         Text(
             text = tag.label,
             style = MaterialTheme.typography.labelSmall,
-            color = tag.colortype,
+            color = color,
             fontWeight = FontWeight.SemiBold
         )
     }
