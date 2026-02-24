@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.calleserpis.elfontheshelf.R
+import com.calleserpis.elfontheshelf.domain.model.ElfTag
 
 @Composable
 fun HomeScreen(
@@ -124,12 +126,55 @@ fun ElfAdventureCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-//                ElfTagRow(tags = adventure.tags)
+                ElfTagRow(tags = listOf(
+                    ElfTag(
+                        label = "Adventure",
+                        colortype = Color.Red
+                    ),
+                    ElfTag(
+                        label = "Adventure",
+                        colortype = Color.Yellow
+                    )
+
+                ))
             }
         }
     }
 }
-
+@Composable
+fun ElfTagRow(
+    tags: List<ElfTag>,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = modifier
+    ) {
+        tags.forEach { tag ->
+            ElfTagChip(tag = tag)
+        }
+    }
+}
+@Composable
+fun ElfTagChip(
+    tag: ElfTag,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .clip(RoundedCornerShape(50.dp))
+            .background(tag.colortype.copy(alpha = 0.15f))
+            .padding(horizontal = 10.dp, vertical = 4.dp)
+    ) {
+        Text(
+            text = tag.label,
+            style = MaterialTheme.typography.labelSmall,
+            color = tag.colortype,
+            fontWeight = FontWeight.SemiBold
+        )
+    }
+}
 
 @Composable
 fun FavoriteButton(
