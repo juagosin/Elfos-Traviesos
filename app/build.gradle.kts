@@ -1,15 +1,17 @@
+import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.calleserpis.elfontheshelf"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
+
 
     defaultConfig {
         applicationId = "com.calleserpis.elfontheshelf"
@@ -37,6 +39,14 @@ android {
     buildFeatures {
         compose = true
     }
+    packaging {
+        resources {
+            excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
+        }
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -60,4 +70,8 @@ dependencies {
     // OkHttp
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
+    //DI
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation)
+    ksp(libs.hilt.compiler)
 }
