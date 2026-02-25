@@ -34,17 +34,53 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun onSearchQueryChange(query: String) {
+        _state.update { currentState ->
+            val filtered = filterAdventures(
+                adventures = currentState.allElfAdventures,
+                query = query
+            )
+            currentState.copy(
+                searchQuery = query,
+                elfAdventures = filtered
+            )
+        }
+    }
+
     private fun loadElfAdventures() {
         viewModelScope.launch {
             try{
                 elfAdventuresUseCases.getElfAdventures().distinctUntilChanged().collect{
                     _state.update { currentState ->
-                        currentState.copy(elfAdventures = it)
+                        val filtered = filterAdventures(
+                            adventures = it,
+                            query = currentState.searchQuery
+                        )
+                        currentState.copy(
+                            allElfAdventures = it,
+                            elfAdventures = filtered
+                        )
                     }
                 }
             }catch (e: Exception){
 
             }
+        }
+    }
+
+    private fun filterAdventures(
+        adventures: List<com.calleserpis.elfontheshelf.domain.model.ElfAdventure>,
+        query: String
+    ): List<com.calleserpis.elfontheshelf.domain.model.ElfAdventure> {
+        if (query.isBlank()) return adventures
+
+        return adventures.filter { adventure ->
+            adventure.title.contains(query, ignoreCase = true) ||
+                    adventure.tags.any { tag ->
+                        tag.label.contains(query, ignoreCase = true)
+                    } ||
+                    adventure.description.contains(query, ignoreCase = true)
+
         }
     }
 }

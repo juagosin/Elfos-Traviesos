@@ -19,12 +19,15 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -52,39 +55,48 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onCardClick: (Int) -> Unit,
 ) {
-    val adventures by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 MaterialTheme.colorScheme.surfaceContainer
             )
     ) {
-        items(
-            count = adventures.elfAdventures.size
+        ElfSearchBar(
+            query = state.searchQuery,
+            onQueryChange = viewModel::onSearchQueryChange,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 8.dp)
+        )
 
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            items(
+                count = state.elfAdventures.size
+            ) { index ->
+                val adventure = state.elfAdventures.getOrNull(index) ?: return@items
 
-        ) { index ->
-            val adventure = adventures.elfAdventures.getOrNull(index) ?: return@items
-
-
-            ElfAdventureCard(
-                adventure = adventure,
-                onFavoriteClick = {
-                    viewModel.onFavoriteClick(adventure.id)
-                },
-                onCardClick = {
-                    onCardClick(
-                        adventure.id
-                    )
-                }
-            )
-
+                ElfAdventureCard(
+                    adventure = adventure,
+                    onFavoriteClick = {
+                        viewModel.onFavoriteClick(adventure.id)
+                    },
+                    onCardClick = {
+                        onCardClick(
+                            adventure.id
+                        )
+                    }
+                )
+            }
         }
     }
 }
@@ -219,4 +231,42 @@ fun FavoriteButton(
             modifier = Modifier.size(20.dp)
         )
     }
+}
+
+@Composable
+fun ElfSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    OutlinedTextField(
+        value = query,
+        onValueChange = onQueryChange,
+        modifier = modifier,
+        singleLine = true,
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        },
+        trailingIcon = {
+            if (query.isNotBlank()) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .clickable { onQueryChange("") }
+                )
+            }
+        },
+        placeholder = {
+            Text(
+                text = "Buscar aventuras...",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    )
 }

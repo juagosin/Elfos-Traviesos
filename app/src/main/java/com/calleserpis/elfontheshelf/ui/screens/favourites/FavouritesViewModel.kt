@@ -35,6 +35,19 @@ class FavouritesViewModel @Inject constructor(
         }
     }
 
+    fun onSearchQueryChange(query: String) {
+        _state.update { currentState ->
+            val filtered = filterAdventures(
+                adventures = currentState.allElfAdventures,
+                query = query
+            )
+            currentState.copy(
+                searchQuery = query,
+                elfAdventures = filtered
+            )
+        }
+    }
+
     private fun loadFavouriteElfAdventures() {
         viewModelScope.launch {
             try {
@@ -42,12 +55,33 @@ class FavouritesViewModel @Inject constructor(
                     .distinctUntilChanged()
                     .collect { favourites ->
                         _state.update { currentState ->
-                            currentState.copy(elfAdventures = favourites)
+                            val filtered = filterAdventures(
+                                adventures = favourites,
+                                query = currentState.searchQuery
+                            )
+                            currentState.copy(
+                                allElfAdventures = favourites,
+                                elfAdventures = filtered
+                            )
                         }
                     }
             } catch (ex: Exception) {
                 e("FavouritesViewModel", "Error loading favourites", ex)
             }
+        }
+    }
+
+    private fun filterAdventures(
+        adventures: List<com.calleserpis.elfontheshelf.domain.model.ElfAdventure>,
+        query: String
+    ): List<com.calleserpis.elfontheshelf.domain.model.ElfAdventure> {
+        if (query.isBlank()) return adventures
+
+        return adventures.filter { adventure ->
+            adventure.title.contains(query, ignoreCase = true) ||
+                    adventure.tags.any { tag ->
+                        tag.label.contains(query, ignoreCase = true)
+                    }
         }
     }
 }
