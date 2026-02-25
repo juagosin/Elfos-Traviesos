@@ -43,7 +43,6 @@ import com.calleserpis.elfontheshelf.ui.screens.home.FavoriteButton
 fun DetailScreen(
     adventureId: Int,
     viewModel: DetailViewModel = hiltViewModel(),
-    onFavoriteClick: (Int) -> Unit,
 ) {
     Log.e("DetailScreen", "adventureId: $adventureId")
     LaunchedEffect(adventureId) {
@@ -88,9 +87,9 @@ fun DetailScreen(
                     }
                 )
                 FavoriteButton(
-                    isFavorite = false,//adventure.isFavorite,
+                    isFavorite = adventure.isFavorite,
                     onClick = {
-                        //TODO
+                        viewModel.onEvent(DetailEvent.OnFavoriteClick(adventure.id))
                     },
 
                     modifier = Modifier

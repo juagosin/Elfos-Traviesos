@@ -31,6 +31,10 @@ class DetailViewModel @Inject constructor(
                 loadAdventure(event.adventureId)
             }
 
+            is DetailEvent.OnFavoriteClick -> {
+                toggleFavorite(event.adventureId)
+            }
+
             else -> {}
         }
     }
@@ -57,6 +61,16 @@ class DetailViewModel @Inject constructor(
         }
 
 
+    }
+
+    private fun toggleFavorite(adventureId: Int) {
+        viewModelScope.launch {
+            try {
+                adventuresUseCases.toggleFavorite(adventureId)
+            } catch (e: Exception) {
+                Log.e("DetailScreenViewModel", "Error toggling favorite", e)
+            }
+        }
     }
 
 }

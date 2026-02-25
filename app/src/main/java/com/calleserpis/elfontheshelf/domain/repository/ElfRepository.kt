@@ -7,4 +7,5 @@ interface ElfRepository {
     fun getElfAdventures(): Flow<List<ElfAdventure>>
     fun getFavouritesElfAdventures(): Flow<List<ElfAdventure>>
     fun getElfAdventureById(id: Int?): Flow<ElfAdventure?>
+    suspend fun toggleFavorite(id: Int)
 }

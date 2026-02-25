@@ -15,11 +15,15 @@ class ElfRepositoryImpl(
     }
 
     override fun getFavouritesElfAdventures(): Flow<List<ElfAdventure>> {
-        TODO("Not yet implemented")
+        return elfAdventureDao.getFavouriteElfAdventures().map { it.toDomain() }
     }
 
     override fun getElfAdventureById(id: Int?): Flow<ElfAdventure?> {
         return elfAdventureDao.getElfAdventureById(id).map { it?.toDomain() }
 
+    }
+
+    override suspend fun toggleFavorite(id: Int) {
+        elfAdventureDao.toggleFavorite(id)
     }
 }

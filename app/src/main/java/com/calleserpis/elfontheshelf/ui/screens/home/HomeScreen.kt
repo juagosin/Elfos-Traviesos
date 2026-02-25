@@ -46,7 +46,6 @@ import com.calleserpis.elfontheshelf.domain.model.ElfTag
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    onFavoriteClick: (Int) -> Unit,
     onCardClick: (Int) -> Unit,
 ) {
     val adventures by viewModel.state.collectAsState()
@@ -73,9 +72,7 @@ fun HomeScreen(
             ElfAdventureCard(
                 adventure = adventure,
                 onFavoriteClick = {
-                    onFavoriteClick(
-                        adventure.id
-                    )
+                    viewModel.onFavoriteClick(adventure.id)
                 },
                 onCardClick = {
                     onCardClick(

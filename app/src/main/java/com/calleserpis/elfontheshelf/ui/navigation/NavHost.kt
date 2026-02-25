@@ -18,7 +18,6 @@ fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
     ) {
         composable<Screens.Home>{
             HomeScreen(
-                onFavoriteClick = { /*TODO*/ },
                 onCardClick = {
                     adventureId -> navController.navigate(Screens.Detail(adventureId = adventureId))
                 }
@@ -31,8 +30,7 @@ fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
                 backStackEntry ->
             val detail: Screens.Detail = backStackEntry.toRoute()
             DetailScreen(
-                adventureId = detail.adventureId,
-                onFavoriteClick = { /*TODO*/ }
+                adventureId = detail.adventureId
             )
         }
 

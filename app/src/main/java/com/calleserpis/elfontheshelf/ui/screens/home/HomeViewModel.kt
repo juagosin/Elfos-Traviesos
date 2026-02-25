@@ -24,6 +24,16 @@ class HomeViewModel @Inject constructor(
         loadElfAdventures()
     }
 
+    fun onFavoriteClick(adventureId: Int) {
+        viewModelScope.launch {
+            try {
+                elfAdventuresUseCases.toggleFavorite(adventureId)
+            } catch (e: Exception) {
+                e("HomeViewModel", "Error toggling favorite", e)
+            }
+        }
+    }
+
     private fun loadElfAdventures() {
         viewModelScope.launch {
             try{

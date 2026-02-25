@@ -12,6 +12,10 @@ interface ElfAdventureDao {
     @Query("SELECT * FROM elf_adventures WHERE id = :id")
     fun getElfAdventureById(id: Int?): Flow<ElfAdventureEntity?>
 
+    @Query("SELECT * FROM elf_adventures WHERE isFavorite = 1")
+    fun getFavouriteElfAdventures(): Flow<List<ElfAdventureEntity>>
 
+    @Query("UPDATE elf_adventures SET isFavorite = NOT isFavorite WHERE id = :id")
+    suspend fun toggleFavorite(id: Int)
 
 }
