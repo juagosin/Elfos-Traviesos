@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @TypeConverters(ElfAdventureTypeConverters::class)
-@Database(entities = [ElfAdventureEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ElfAdventureEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract val dao: ElfAdventureDao
     companion object{

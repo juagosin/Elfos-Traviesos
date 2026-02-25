@@ -23,11 +23,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,6 +54,7 @@ fun DetailScreen(
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
     val adventure = state.adventure
+    val context = LocalContext.current
 
     Column(
 
@@ -74,8 +77,14 @@ fun DetailScreen(
 
             ) {
                 AsyncImage(
-                    model = "https://i.pinimg.com/236x/6c/f5/46/6cf546f5f8b6b464e8d45d05ad0dfbc9.jpg",//adventure.imageRes,
-                    contentDescription = "Titulo",//adventure.title,
+                    model = remember(adventure.imageRes) {
+                        context.resources.getIdentifier(
+                            adventure.imageRes,  // "elf_snow"
+                            "drawable",
+                            context.packageName
+                        )
+                    },
+                    contentDescription = adventure.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()

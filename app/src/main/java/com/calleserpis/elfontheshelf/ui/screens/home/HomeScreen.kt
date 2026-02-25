@@ -29,11 +29,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -95,6 +97,7 @@ fun ElfAdventureCard(
     onCardClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     Card(
         onClick = { onCardClick(adventure.id) },
         shape = RoundedCornerShape(16.dp),
@@ -106,7 +109,13 @@ fun ElfAdventureCard(
             // Imagen con botón favorito superpuesto
             Box(modifier = Modifier.fillMaxWidth()) {
                 AsyncImage(
-                    model = "https://i.pinimg.com/236x/6c/f5/46/6cf546f5f8b6b464e8d45d05ad0dfbc9.jpg",//adventure.imageRes,
+                    model = remember(adventure.imageRes) {
+                        context.resources.getIdentifier(
+                            adventure.imageRes,  // "elf_snow"
+                            "drawable",
+                            context.packageName
+                        )
+                    },
                     contentDescription = adventure.title,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

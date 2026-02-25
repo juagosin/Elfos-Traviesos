@@ -8,7 +8,7 @@ data class ElfAdventureEntity(
     @PrimaryKey
     val id: Int,
     val title: String,
-    val imageRes: Int,
+    val imageRes: String,
     val tags: String,
     val description: String,
     val isFavorite: Boolean = false
