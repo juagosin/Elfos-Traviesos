@@ -12,19 +12,21 @@ import com.calleserpis.elfontheshelf.ui.screens.home.HomeScreen
 fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Home.route,
+        startDestination = Screens.Home,
         modifier = modifier
     ) {
-        composable(Screens.Home.route){
+        composable<Screens.Home>{
             HomeScreen(
                 onFavoriteClick = { /*TODO*/ },
-                onCardClick = { /*TODO*/ }
+                onCardClick = {
+                    adventureId -> navController.navigate(Screens.Detail(adventureId = adventureId))
+                }
             )
         }
-        composable(Screens.Favourites.route){
+        composable<Screens.Favourites>{
             //TODO FavScreen()
         }
-        composable(Screens.Detail.route){
+        composable<Screens.Detail>{
             DetailScreen()
         }
 

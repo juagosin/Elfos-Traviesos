@@ -9,22 +9,22 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Screens{
     abstract val route: String
-    abstract val icon: ImageVector
+
 
     @Serializable
     data object Home: Screens() {
         override val route: String = "home"
-        override val icon: ImageVector = Icons.Default.Home
+         val icon: ImageVector = Icons.Default.Home
     }
 
     @Serializable
     data object Favourites: Screens() {
         override val route: String = "favourites"
-        override val icon: ImageVector = Icons.Default.Star
+         val icon: ImageVector = Icons.Default.Star
     }
     @Serializable
-    data object Detail: Screens() {
+    data class Detail(val adventureId: Int): Screens() {
         override val route: String = "detail"
-        override val icon: ImageVector = Icons.Default.Star
+
     }
 }

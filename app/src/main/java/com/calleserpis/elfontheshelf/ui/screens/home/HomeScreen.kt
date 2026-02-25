@@ -49,33 +49,41 @@ fun HomeScreen(
     onFavoriteClick: (Int) -> Unit,
     onCardClick: (Int) -> Unit,
 ) {
- val adventures by viewModel.state.collectAsState()
+    val adventures by viewModel.state.collectAsState()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.fillMaxSize().background(
-            MaterialTheme.colorScheme.surfaceContainer
-        )
-    ){
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                MaterialTheme.colorScheme.surfaceContainer
+            )
+    ) {
         items(
             count = adventures.elfAdventures.size
 
 
-        ){index ->
+        ) { index ->
             val adventure = adventures.elfAdventures.getOrNull(index) ?: return@items
 
 
             ElfAdventureCard(
                 adventure = adventure,
-                onFavoriteClick = { onFavoriteClick(0
-                    //adventure.id
-                     ) },
-                onCardClick = { onCardClick(0
-                    //adventure.id
-                    ) }
+                onFavoriteClick = {
+                    onFavoriteClick(
+                        0
+                        //adventure.id
+                    )
+                },
+                onCardClick = {
+                    onCardClick(
+                        0
+                        //adventure.id
+                    )
+                }
             )
 
         }
@@ -83,16 +91,15 @@ fun HomeScreen(
 }
 
 
-
 @Composable
 fun ElfAdventureCard(
     adventure: ElfAdventure,
     onFavoriteClick: () -> Unit,
-    onCardClick: () -> Unit,
+    onCardClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        onClick = onCardClick,
+        onClick = { onCardClick(adventure.id) },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -116,7 +123,7 @@ fun ElfAdventureCard(
                     }
                 )
                 FavoriteButton(
-                    isFavorite = false,//adventure.isFavorite,
+                    isFavorite = adventure.isFavorite,
                     onClick = onFavoriteClick,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
@@ -142,6 +149,7 @@ fun ElfAdventureCard(
         }
     }
 }
+
 @Composable
 fun ElfTagRow(
     tags: List<ElfTag>,
@@ -156,6 +164,7 @@ fun ElfTagRow(
         }
     }
 }
+
 @Composable
 fun ElfTagChip(
     tag: ElfTag,
