@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.calleserpis.elfontheshelf.ui.screens.detail.DetailScreen
 import com.calleserpis.elfontheshelf.ui.screens.home.HomeScreen
 
@@ -27,7 +28,12 @@ fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
             //TODO FavScreen()
         }
         composable<Screens.Detail>{
-            DetailScreen()
+                backStackEntry ->
+            val detail: Screens.Detail = backStackEntry.toRoute()
+            DetailScreen(
+                adventureId = detail.adventureId,
+                onFavoriteClick = { /*TODO*/ }
+            )
         }
 
     }

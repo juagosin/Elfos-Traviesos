@@ -30,12 +30,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.calleserpis.elfontheshelf.R
 import com.calleserpis.elfontheshelf.ui.screens.home.FavoriteButton
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    adventureId: Int,
+    viewModel: DetailViewModel = hiltViewModel(),
+    onFavoriteClick: (Int) -> Unit,
+) {
     Column(
 
         verticalArrangement = Arrangement.spacedBy(12.dp),
