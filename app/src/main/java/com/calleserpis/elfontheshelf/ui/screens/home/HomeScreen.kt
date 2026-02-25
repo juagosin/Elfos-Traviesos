@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.calleserpis.elfontheshelf.R
+import com.calleserpis.elfontheshelf.common.ElfTags
 import com.calleserpis.elfontheshelf.domain.model.ElfAdventure
 import com.calleserpis.elfontheshelf.domain.model.ElfTag
 
@@ -165,7 +166,8 @@ fun ElfTagChip(
     tag: ElfTag,
     modifier: Modifier = Modifier
 ) {
-    val color = Color(tag.colortype)
+    val resolvedTag = ElfTags.findByLabel(tag.label)
+    val color = resolvedTag?.let { Color(it.colortype) } ?: MaterialTheme.colorScheme.primary
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier

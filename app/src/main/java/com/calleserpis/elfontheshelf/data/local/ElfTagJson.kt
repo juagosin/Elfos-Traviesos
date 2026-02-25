@@ -4,6 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ElfTagJson(
-    val label: String,
-    val colorLong: Long
+    val label: String
 )

@@ -1,18 +1,38 @@
 package com.calleserpis.elfontheshelf.common
 
-import android.R.attr.label
-import androidx.compose.ui.graphics.Color
 import com.calleserpis.elfontheshelf.domain.model.ElfTag
 
 object ElfTags {
-    val MAGIC = ElfTag(label = "Magic", colortype = 0xFF7C4DFF)
-    val ADVENTURE = ElfTag(label = "Adventure", colortype = 0xFF00BCD4)
-    val FOREST = ElfTag(label = "Forest", colortype = 0xFF4CAF50)
-    val SNOW = ElfTag(label = "Snow", colortype = 0xFF90CAF9)
-    val DANGER = ElfTag(label = "Danger", colortype = 0xFFF44336)
-    val MYSTERY = ElfTag(label = "Mystery", colortype = 0xFF9C27B0)
-    val TREASURE = ElfTag(label = "Treasure", colortype = 0xFFFFD700)
-    val FESTIVAL = ElfTag(label = "Festival", colortype = 0xFFFF8F00)
+    // Catálogo fijo de tags y sus colores
+    val MAGIC = ElfTag(label = "FOOD", colortype = 0xFF7C4DFF)
+    val ADVENTURE = ElfTag(label = "ADVENTURE", colortype = 0xFF00BCD4)
+    val FOREST = ElfTag(label = "FOREST", colortype = 0xFF4CAF50)
+    val SNOW = ElfTag(label = "SNOW", colortype = 0xFF90CAF9)
+    val DANGER = ElfTag(label = "DANGER", colortype = 0xFFF44336)
+    val MYSTERY = ElfTag(label = "MYSTERY", colortype = 0xFF9C27B0)
+    val TREASURE = ElfTag(label = "TREASURE", colortype = 0xFFFFD700)
+    val FESTIVAL = ElfTag(label = "FESTIVAL", colortype = 0xFFFF8F00)
 
-    val all = listOf(MAGIC, ADVENTURE, FOREST, SNOW, DANGER, MYSTERY, TREASURE, FESTIVAL)
+    val INDOOR = ElfTag(label = "INDOOR", colortype = 0xFF4DB6AC)
+    val EASY = ElfTag(label = "EASY", colortype = 0xFF81C784)
+    val MEDIUM = ElfTag(label = "MEDIUM", colortype = 0xFFF39F18)
+    val HARD = ElfTag(label = "HARD", colortype = 0xFFFF4D54)
+
+    val all = listOf(
+        MAGIC,
+        ADVENTURE,
+        FOREST,
+        SNOW,
+        DANGER,
+        MYSTERY,
+        TREASURE,
+        FESTIVAL,
+        INDOOR,
+        EASY,
+        MEDIUM,
+        HARD
+    )
+
+    fun findByLabel(label: String): ElfTag? =
+        all.firstOrNull { it.label.equals(label, ignoreCase = true) }
 }
