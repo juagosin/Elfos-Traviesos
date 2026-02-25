@@ -6,8 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -130,7 +131,8 @@ fun ElfAdventureCard(
             // Título y tags
             Column(
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = adventure.title,
@@ -146,14 +148,17 @@ fun ElfAdventureCard(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ElfTagRow(
     tags: List<ElfTag>,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        modifier = modifier
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(6.dp,Alignment.CenterHorizontally),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = modifier.fillMaxWidth(),
+
     ) {
         tags.forEach { tag ->
             ElfTagChip(tag = tag)

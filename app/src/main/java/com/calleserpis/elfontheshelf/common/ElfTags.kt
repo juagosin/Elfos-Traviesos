@@ -1,10 +1,11 @@
 package com.calleserpis.elfontheshelf.common
 
 import com.calleserpis.elfontheshelf.domain.model.ElfTag
+import okhttp3.internal.cache.DiskLruCache.Companion.MAGIC
 
 object ElfTags {
     // Catálogo fijo de tags y sus colores
-    val MAGIC = ElfTag(label = "FOOD", colortype = 0xFF7C4DFF)
+    val FOOD = ElfTag(label = "FOOD", colortype = 0xFF7C4DFF)
     val ADVENTURE = ElfTag(label = "ADVENTURE", colortype = 0xFF00BCD4)
     val FOREST = ElfTag(label = "FOREST", colortype = 0xFF4CAF50)
     val SNOW = ElfTag(label = "SNOW", colortype = 0xFF90CAF9)
@@ -19,7 +20,7 @@ object ElfTags {
     val HARD = ElfTag(label = "HARD", colortype = 0xFFFF4D54)
 
     val all = listOf(
-        MAGIC,
+        FOOD,
         ADVENTURE,
         FOREST,
         SNOW,
