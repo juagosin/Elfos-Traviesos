@@ -8,6 +8,7 @@ import com.calleserpis.elfontheshelf.domain.repository.ElfRepository
 import com.calleserpis.elfontheshelf.domain.use_cases.ElfAdventuresUseCases
 import com.calleserpis.elfontheshelf.domain.use_cases.GetElfAdventureByIdUseCase
 import com.calleserpis.elfontheshelf.domain.use_cases.GetElfAdventuresUseCase
+import com.calleserpis.elfontheshelf.domain.use_cases.GetFavouriteElfAdventuresUseCase
 import com.calleserpis.elfontheshelf.domain.use_cases.ToggleFavoriteUseCase
 import dagger.Module
 import dagger.Provides
@@ -45,7 +46,8 @@ object AppModule {
         return ElfAdventuresUseCases(
             getElfAdventures = GetElfAdventuresUseCase(repository),
             getElfAdventureById = GetElfAdventureByIdUseCase(repository),
-            toggleFavorite = ToggleFavoriteUseCase(repository)
+            toggleFavorite = ToggleFavoriteUseCase(repository),
+            getFavouriteElfAdventures = GetFavouriteElfAdventuresUseCase(repository)
         )
 
     }
