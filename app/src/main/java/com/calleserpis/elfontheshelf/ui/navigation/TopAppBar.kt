@@ -29,7 +29,7 @@ import com.calleserpis.elfontheshelf.R
 fun ElfTopAppBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute: String? = navBackStackEntry?.destination?.route
-    val isDetailRoute = currentRoute?.contains("detail") == true
+    val isDetailRoute = currentRoute?.contains("Screens.Detail") == true
     TopAppBar(
         title = {
             Text(

@@ -23,7 +23,7 @@ fun ElfBottomBar(navController: NavHostController) {
             label = {
                 Text(text = "Home")
             },
-            selected = currentRoute == Screens.Home.route,
+            selected = currentRoute?.contains("Home") == true,
             onClick = {
                 navController.navigate(Screens.Home.route){
                     popUpTo(navController.graph.findStartDestination().id) {
@@ -49,7 +49,7 @@ fun ElfBottomBar(navController: NavHostController) {
             label = {
                 Text(text = "Favourites")
             },
-            selected = currentRoute == Screens.Favourites.route,
+            selected = currentRoute?.contains("Favourites") == true,
             onClick = { /*TODO*/ },
             icon = {
                 Icon( Screens.Favourites.icon, contentDescription = "")
