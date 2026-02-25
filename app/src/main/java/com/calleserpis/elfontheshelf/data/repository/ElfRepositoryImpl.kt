@@ -18,7 +18,8 @@ class ElfRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override fun getElfAdventureById(id: Int): Flow<ElfAdventure?> {
-        TODO("Not yet implemented")
+    override fun getElfAdventureById(id: Int?): Flow<ElfAdventure?> {
+        return elfAdventureDao.getElfAdventureById(id).map { it?.toDomain() }
+
     }
 }

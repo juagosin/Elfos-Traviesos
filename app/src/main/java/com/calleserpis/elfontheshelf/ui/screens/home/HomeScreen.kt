@@ -74,14 +74,12 @@ fun HomeScreen(
                 adventure = adventure,
                 onFavoriteClick = {
                     onFavoriteClick(
-                        0
-                        //adventure.id
+                        adventure.id
                     )
                 },
                 onCardClick = {
                     onCardClick(
-                        0
-                        //adventure.id
+                        adventure.id
                     )
                 }
             )

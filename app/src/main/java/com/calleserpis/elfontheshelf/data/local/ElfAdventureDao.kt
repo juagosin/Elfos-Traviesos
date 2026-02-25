@@ -9,4 +9,9 @@ interface ElfAdventureDao {
     @Query("SELECT * FROM elf_adventures")
     fun getElfAdventures(): Flow<List<ElfAdventureEntity>>
 
+    @Query("SELECT * FROM elf_adventures WHERE id = :id")
+    fun getElfAdventureById(id: Int?): Flow<ElfAdventureEntity?>
+
+
+
 }

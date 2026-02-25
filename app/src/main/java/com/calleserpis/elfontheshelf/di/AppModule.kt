@@ -6,6 +6,7 @@ import com.calleserpis.elfontheshelf.data.local.AppDatabase
 import com.calleserpis.elfontheshelf.data.repository.ElfRepositoryImpl
 import com.calleserpis.elfontheshelf.domain.repository.ElfRepository
 import com.calleserpis.elfontheshelf.domain.use_cases.ElfAdventuresUseCases
+import com.calleserpis.elfontheshelf.domain.use_cases.GetElfAdventureByIdUseCase
 import com.calleserpis.elfontheshelf.domain.use_cases.GetElfAdventuresUseCase
 import dagger.Module
 import dagger.Provides
@@ -41,7 +42,8 @@ object AppModule {
         repository: ElfRepository
     ): ElfAdventuresUseCases {
         return ElfAdventuresUseCases(
-            getElfAdventures = GetElfAdventuresUseCase(repository)
+            getElfAdventures = GetElfAdventuresUseCase(repository),
+            getElfAdventureById = GetElfAdventureByIdUseCase(repository)
         )
 
     }
