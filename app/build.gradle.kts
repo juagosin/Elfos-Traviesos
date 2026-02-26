@@ -82,4 +82,7 @@ dependencies {
     ksp(libs.room.compiler)
     //Serialization
     implementation(libs.kotlinx.serialization.json)
+    // Firebase BoM
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.ai)
 }
