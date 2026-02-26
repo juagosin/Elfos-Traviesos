@@ -1,5 +1,3 @@
-import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
