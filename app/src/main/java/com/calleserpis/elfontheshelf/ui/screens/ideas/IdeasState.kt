@@ -1,5 +1,6 @@
 package com.calleserpis.elfontheshelf.ui.screens.ideas
 
+import androidx.annotation.StringRes
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,7 +17,7 @@ data class IdeasApiResponse(
 data class IdeasState(
     val inputText: String = "",
     val isLoading: Boolean = false,
-    val errorMessage: String? = null,
+    @StringRes val errorMessageResId: Int? = null,
     val ideas: List<IdeaSuggestion> = emptyList(),
 )
 

@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">ElfOnTheShelf</string>
+
+    <!-- Bottom bar -->
+    <string name="bottom_bar_home">Home</string>
+    <string name="bottom_bar_favourites">Favourites</string>
+    <string name="bottom_bar_ideas">Ideas</string>
+
+    <!-- Top app bar -->
+    <string name="top_app_bar_title">Elf Adventures</string>
+
+    <!-- Home screen -->
+    <string name="home_favorite_remove">Remove from favorites</string>
+    <string name="home_favorite_add">Add to favorites</string>
+    <string name="home_search_placeholder">Buscar aventuras...</string>
+
+    <!-- Ideas screen -->
+    <string name="ideas_title">Tormenta de Ideas</string>
+    <string name="ideas_input_placeholder">Escribe los materiales de los que dispones y dale al botón mágico para que los elfos te sugieran nuevas ideas</string>
+    <string name="ideas_button_magic">Magia</string>
+    <string name="ideas_loading_message">Esperando respuesta...</string>
+
+    <!-- Favourites screen -->
+    <string name="favourites_empty_message">No hay elementos favoritos todavía</string>
+
+    <!-- Ideas errors -->
+    <string name="ideas_error_no_connection">Sin conexión a internet. Conéctate para usar la magia de los elfos.</string>
+    <string name="ideas_error_empty_materials">Escribe primero los materiales que tienes en casa.</string>
+    <string name="ideas_error_no_ideas">No he podido obtener ideas en este momento. Inténtalo de nuevo.</string>
+    <string name="ideas_error_firebase_not_configured">Parece que Firebase no está correctamente configurado. Asegúrate de haber añadido el archivo google-services.json al módulo app y de haber configurado Firebase en el proyecto.</string>
+    <string name="ideas_error_model_not_found">El modelo Gemini configurado no está disponible para tu proyecto. Revisa en la consola de Firebase que ´gemini-2.5-flash´ esté habilitado en Firebase AI Logic.</string>
+    <string name="ideas_error_generic">Ha ocurrido un error al pedir ideas a los elfos. Comprueba tu conexión e inténtalo de nuevo.</string>
 </resources>

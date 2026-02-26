@@ -27,10 +27,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.calleserpis.elfontheshelf.R
 
 @Composable
 fun IdeasScreen(
@@ -53,7 +55,7 @@ fun IdeasScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Tormenta de Ideas",
+                text = stringResource(R.string.ideas_title),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
@@ -69,7 +71,7 @@ fun IdeasScreen(
                 maxLines = 3,
                 placeholder = {
                     Text(
-                        text = "Escribe los materiales de los que dispones y dale al botón mágico para que los elfos te sugieran nuevas ideas",
+                        text = stringResource(R.string.ideas_input_placeholder),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -81,10 +83,11 @@ fun IdeasScreen(
                     viewModel.onMagicClick(isOnline)
                 },
                 modifier = Modifier
-                    .fillMaxWidth().padding(    top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
 
             ) {
-                Text(text = "Magia")
+                Text(text = stringResource(R.string.ideas_button_magic))
             }
         }
 
@@ -98,15 +101,15 @@ fun IdeasScreen(
             ) {
                 CircularProgressIndicator()
                 Text(
-                    text = "Esperando respuesta...",
+                    text = stringResource(R.string.ideas_loading_message),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
 
-        state.errorMessage?.let { error ->
+        state.errorMessageResId?.let { errorResId ->
             Text(
-                text = error,
+                text = stringResource(id = errorResId),
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier

@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -226,7 +227,11 @@ fun FavoriteButton(
     ) {
         Icon(
             imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+            contentDescription = if (isFavorite) {
+                stringResource(R.string.home_favorite_remove)
+            } else {
+                stringResource(R.string.home_favorite_add)
+            },
             tint = if (isFavorite) Color.Red else Color.Gray,
             modifier = Modifier.size(20.dp)
         )
@@ -264,7 +269,7 @@ fun ElfSearchBar(
         },
         placeholder = {
             Text(
-                text = "Buscar aventuras...",
+                text = stringResource(R.string.home_search_placeholder),
                 style = MaterialTheme.typography.bodyMedium
             )
         }

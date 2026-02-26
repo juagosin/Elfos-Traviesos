@@ -3,6 +3,7 @@ package com.calleserpis.elfontheshelf.ui.screens.ideas
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.calleserpis.elfontheshelf.R
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
@@ -25,7 +26,7 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onInputChange(newText: String) {
-        _state.update { it.copy(inputText = newText, errorMessage = null) }
+        _state.update { it.copy(inputText = newText, errorMessageResId = null) }
     }
 
     fun onMagicClick(isOnline: Boolean) {
@@ -33,7 +34,7 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(
                     isLoading = false,
-                    errorMessage = "Sin conexión a internet. Conéctate para usar la magia de los elfos."
+                    errorMessageResId = R.string.ideas_error_no_connection
                 )
             }
             return
@@ -44,7 +45,7 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(
                     isLoading = false,
-                    errorMessage = "Escribe primero los materiales que tienes en casa."
+                    errorMessageResId = R.string.ideas_error_empty_materials
                 )
             }
             return
@@ -54,7 +55,7 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
             _state.update {
                 it.copy(
                     isLoading = true,
-                    errorMessage = null
+                    errorMessageResId = null
                 )
             }
 
@@ -71,7 +72,7 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
                     _state.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = "No he podido obtener ideas en este momento. Inténtalo de nuevo."
+                            errorMessageResId = R.string.ideas_error_no_ideas
                         )
                     }
                     return@launch
@@ -83,29 +84,29 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
                     it.copy(
                         isLoading = false,
                         ideas = ideas,
-                        errorMessage = null
+                        errorMessageResId = null
                     )
                 }
             } catch (e: Exception) {
                 Log.e("IdeasViewModel", "Error al pedir ideas a los elfos", e)
 
-                val friendlyMessage = when {
+                val friendlyMessageResId = when {
                     e.message?.contains("Default FirebaseApp is not initialized", ignoreCase = true) == true ||
                             e.message?.contains("NO_APP", ignoreCase = true) == true ->
-                        "Parece que Firebase no está correctamente configurado. Asegúrate de haber añadido el archivo google-services.json al módulo app y de haber configurado Firebase en el proyecto."
+                        R.string.ideas_error_firebase_not_configured
 
                     e.message?.contains("model", ignoreCase = true) == true &&
                             e.message?.contains("not found", ignoreCase = true) == true ->
-                        "El modelo Gemini configurado no está disponible para tu proyecto. Revisa en la consola de Firebase que 'gemini-2.5-flash' esté habilitado en Firebase AI Logic."
+                        R.string.ideas_error_model_not_found
 
                     else ->
-                        "Ha ocurrido un error al pedir ideas a los elfos. Comprueba tu conexión e inténtalo de nuevo."
+                        R.string.ideas_error_generic
                 }
 
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = friendlyMessage
+                        errorMessageResId = friendlyMessageResId
                     )
                 }
             }

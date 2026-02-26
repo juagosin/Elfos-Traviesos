@@ -8,9 +8,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.calleserpis.elfontheshelf.R
 
 @Composable
 fun ElfBottomBar(navController: NavHostController) {
@@ -19,7 +21,7 @@ fun ElfBottomBar(navController: NavHostController) {
     NavigationBar(containerColor = Color.Transparent){
         NavigationBarItem(
             label = {
-                Text(text = "Home")
+                Text(text = stringResource(R.string.bottom_bar_home))
             },
             selected = currentRoute?.contains("Home") == true,
             onClick = {
@@ -44,7 +46,7 @@ fun ElfBottomBar(navController: NavHostController) {
         )
         NavigationBarItem(
             label = {
-                Text(text = "Favourites")
+                Text(text = stringResource(R.string.bottom_bar_favourites))
             },
             selected = currentRoute?.contains("Favourites") == true,
             onClick = {
@@ -69,7 +71,7 @@ fun ElfBottomBar(navController: NavHostController) {
         )
         NavigationBarItem(
             label = {
-                Text(text = "Ideas")
+                Text(text = stringResource(R.string.bottom_bar_ideas))
             },
             selected = currentRoute?.contains("Ideas") == true,
             onClick = {

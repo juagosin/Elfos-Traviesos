@@ -17,9 +17,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.calleserpis.elfontheshelf.R
 import com.calleserpis.elfontheshelf.ui.screens.home.ElfAdventureCard
 import com.calleserpis.elfontheshelf.ui.screens.home.ElfSearchBar
 
@@ -51,7 +53,7 @@ fun FavouritesScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No hay elementos favoritos todavía",
+                    text = stringResource(R.string.favourites_empty_message),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
