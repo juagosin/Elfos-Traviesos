@@ -9,6 +9,7 @@ import androidx.navigation.toRoute
 import com.calleserpis.elfontheshelf.ui.screens.detail.DetailScreen
 import com.calleserpis.elfontheshelf.ui.screens.favourites.FavouritesScreen
 import com.calleserpis.elfontheshelf.ui.screens.home.HomeScreen
+import com.calleserpis.elfontheshelf.ui.screens.ideas.IdeasScreen
 
 @Composable
 fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) {
@@ -17,22 +18,24 @@ fun ElfNavHost(modifier: Modifier = Modifier, navController: NavHostController) 
         startDestination = Screens.Home,
         modifier = modifier
     ) {
-        composable<Screens.Home>{
+        composable<Screens.Home> {
             HomeScreen(
-                onCardClick = {
-                    adventureId -> navController.navigate(Screens.Detail(adventureId = adventureId))
+                onCardClick = { adventureId ->
+                    navController.navigate(Screens.Detail(adventureId = adventureId))
                 }
             )
         }
-        composable<Screens.Favourites>{
+        composable<Screens.Favourites> {
             FavouritesScreen(
                 onCardClick = { adventureId ->
                     navController.navigate(Screens.Detail(adventureId = adventureId))
                 }
             )
         }
-        composable<Screens.Detail>{
-                backStackEntry ->
+        composable<Screens.Ideas> {
+            IdeasScreen()
+        }
+        composable<Screens.Detail> { backStackEntry ->
             val detail: Screens.Detail = backStackEntry.toRoute()
             DetailScreen(
                 adventureId = detail.adventureId

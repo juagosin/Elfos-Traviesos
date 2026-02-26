@@ -1,7 +1,6 @@
 package com.calleserpis.elfontheshelf.ui.navigation
 
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -42,7 +41,6 @@ fun ElfBottomBar(navController: NavHostController) {
                 selectedIconColor = Color.Red,
                 selectedTextColor = Color.Red,
                 indicatorColor = Color.Transparent
-                //indicatorColor = MaterialTheme.colorScheme.primary
             )
         )
         NavigationBarItem(
@@ -68,7 +66,31 @@ fun ElfBottomBar(navController: NavHostController) {
                 selectedIconColor = Color.Red,
                 selectedTextColor = Color.Red,
                 indicatorColor = Color.Transparent
-                //indicatorColor = MaterialTheme.colorScheme.primary
+            )
+        )
+        NavigationBarItem(
+            label = {
+                Text(text = "Ideas")
+            },
+            selected = currentRoute?.contains("Ideas") == true,
+            onClick = {
+                navController.navigate(Screens.Ideas){
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+
+                    launchSingleTop = true
+
+                    restoreState = true
+                }
+            },
+            icon = {
+                Icon( Screens.Ideas.icon, contentDescription = "")
+            },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = Color.Red,
+                selectedTextColor = Color.Red,
+                indicatorColor = Color.Transparent
             )
         )
     }
