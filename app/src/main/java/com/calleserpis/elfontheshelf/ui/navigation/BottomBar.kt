@@ -25,14 +25,13 @@ fun ElfBottomBar(navController: NavHostController) {
             },
             selected = currentRoute?.contains("Home") == true,
             onClick = {
-                navController.navigate(Screens.Home){
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
+                navController.navigate(Screens.Home) {
+                    popUpTo(navController.graph.id) {
+                        inclusive = true
+                        saveState = false
                     }
-
                     launchSingleTop = true
-
-                    restoreState = true
+                    restoreState = false
                 }
             },
             icon = {
