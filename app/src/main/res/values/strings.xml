@@ -19,6 +19,8 @@
     <string name="ideas_input_placeholder">Escribe los materiales de los que dispones y dale al botón mágico para que los elfos te sugieran nuevas ideas</string>
     <string name="ideas_button_magic">Magia</string>
     <string name="ideas_loading_message">Esperando respuesta...</string>
+    <string name="ideas_magic_usage_hint">Los elfos solo pueden usar su magia 3 veces al día. Hoy te quedan %1$d.</string>
+    <string name="ideas_magic_usage_exhausted">La magia de los elfos se ha agotado por hoy, inténtalo mañana de nuevo.</string>
 
     <!-- Favourites screen -->
     <string name="favourites_empty_message">No hay elementos favoritos todavía</string>

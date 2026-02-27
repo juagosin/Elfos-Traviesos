@@ -83,4 +83,6 @@ dependencies {
     // Firebase BoM
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.ai)
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
 }

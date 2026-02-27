@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.calleserpis.elfontheshelf.R
+import com.calleserpis.elfontheshelf.data.datastore.IdeasUsageDataStore
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
@@ -16,13 +17,23 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @HiltViewModel
-class IdeasViewModel @Inject constructor() : ViewModel() {
+class IdeasViewModel @Inject constructor(
+    private val ideasUsageDataStore: IdeasUsageDataStore,
+) : ViewModel() {
 
     private val _state = MutableStateFlow(IdeasState())
     val state = _state.asStateFlow()
 
     private val json = Json {
         ignoreUnknownKeys = true
+    }
+
+    init {
+        viewModelScope.launch {
+            val usage = ideasUsageDataStore.getCurrentUsage()
+            val remaining = (MAX_USES_PER_DAY - usage.usedCount).coerceAtLeast(0)
+            _state.update { it.copy(remainingUsesToday = remaining) }
+        }
     }
 
     fun onInputChange(newText: String) {
@@ -37,6 +48,11 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
                     errorMessageResId = R.string.ideas_error_no_connection
                 )
             }
+            return
+        }
+
+        if (_state.value.remainingUsesToday <= 0) {
+            // Ya no quedan usos hoy, no llamamos a la IA
             return
         }
 
@@ -80,11 +96,15 @@ class IdeasViewModel @Inject constructor() : ViewModel() {
 
                 val ideas = parseIdeas(text)
 
+                val usageAfterSuccess = ideasUsageDataStore.incrementUsage()
+                val remaining = (MAX_USES_PER_DAY - usageAfterSuccess.usedCount).coerceAtLeast(0)
+
                 _state.update {
                     it.copy(
                         isLoading = false,
                         ideas = ideas,
-                        errorMessageResId = null
+                        errorMessageResId = null,
+                        remainingUsesToday = remaining
                     )
                 }
             } catch (e: Exception) {

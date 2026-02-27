@@ -19,5 +19,9 @@ data class IdeasState(
     val isLoading: Boolean = false,
     @StringRes val errorMessageResId: Int? = null,
     val ideas: List<IdeaSuggestion> = emptyList(),
+    val remainingUsesToday: Int = MAX_USES_PER_DAY,
 )
+
+const val MAX_USES_PER_DAY = 3
+
 

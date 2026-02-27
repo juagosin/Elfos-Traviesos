@@ -77,11 +77,28 @@ fun IdeasScreen(
                 }
             )
 
+            Text(
+                text = if (state.remainingUsesToday > 0) {
+                    stringResource(
+                        id = R.string.ideas_magic_usage_hint,
+                        state.remainingUsesToday
+                    )
+                } else {
+                    stringResource(id = R.string.ideas_magic_usage_exhausted)
+                },
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            )
+
             Button(
                 onClick = {
                     val isOnline = isOnline(context)
                     viewModel.onMagicClick(isOnline)
                 },
+                enabled = state.remainingUsesToday > 0 && !state.isLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
