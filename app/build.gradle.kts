@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    namespace = "com.calleserpis.elfontheshelf"
+    namespace = "com.calleserpis.elfonavidenyo"
     compileSdk = 36
 
 
     defaultConfig {
-        applicationId = "com.calleserpis.elfontheshelf"
+        applicationId = "com.calleserpis.elfonavidenyo"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

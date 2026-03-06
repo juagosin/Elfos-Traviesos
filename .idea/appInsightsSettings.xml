@@ -36,7 +36,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.calleserpis.elfontheshelf" />
+                  <option name="appId" value="com.calleserpis.elfonavidenyo" />
                   <option name="mobileSdkAppId" value="1:893323707374:android:362161cb2d1bf5d14604ff" />
                   <option name="projectId" value="elf-on-the-shelf-1990d" />
                   <option name="projectNumber" value="893323707374" />
