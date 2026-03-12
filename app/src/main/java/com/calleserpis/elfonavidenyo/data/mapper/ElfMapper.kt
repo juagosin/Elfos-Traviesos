@@ -6,6 +6,7 @@ import com.calleserpis.elfonavidenyo.domain.model.ElfTag
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.util.Locale
 
 private val json = Json {
     ignoreUnknownKeys = true
@@ -28,12 +29,26 @@ private fun ElfTagDto.toElfTag() = ElfTag(
 // ── Mappers públicos ──────────────────────────────────────────────
 
 fun ElfAdventureEntity.toDomain(): ElfAdventure {
+    val isSpanish = Locale.getDefault().language == "es"
+
+    val resolvedTitle = when {
+        isSpanish -> title
+        !title_en.isNullOrBlank() -> title_en
+        else -> title
+    }
+
+    val resolvedDescription = when {
+        isSpanish -> description
+        !description_en.isNullOrBlank() -> description_en
+        else -> description
+    }
+
     return ElfAdventure(
         id = id,
-        title = title,
+        title = resolvedTitle,
         imageRes = imageRes,
         tags = json.decodeFromString<List<ElfTagDto>>(tags).map { it.toElfTag() },
-        description = description,
+        description = resolvedDescription,
         isFavorite = isFavorite
     )
 }
@@ -42,9 +57,11 @@ fun ElfAdventure.toEntity(): ElfAdventureEntity {
     return ElfAdventureEntity(
         id = id,
         title = title,
+        title_en = null,
         imageRes = imageRes,
         tags = json.encodeToString(tags.map { it.toDto() }),
         description = description,
+        description_en = null,
         isFavorite = isFavorite
     )
 }

@@ -69,7 +69,7 @@ object AppModule {
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
                 Log.d("DB_SEED", "📂 onOpen - BD ya existía")
-
+                //executeSqlFile(db, "seed.sql")
 
             }
         }
