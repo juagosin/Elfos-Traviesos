@@ -50,6 +50,7 @@ import com.calleserpis.elfonavidenyo.R
 import com.calleserpis.elfonavidenyo.common.ElfTags
 import com.calleserpis.elfonavidenyo.domain.model.ElfAdventure
 import com.calleserpis.elfonavidenyo.domain.model.ElfTag
+import com.calleserpis.elfonavidenyo.ui.common.ElfBottomBannerAd
 
 @Composable
 fun HomeScreen(
@@ -63,42 +64,54 @@ fun HomeScreen(
             .fillMaxSize()
             .background(
                 MaterialTheme.colorScheme.surfaceContainer
-            )
+            ),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        ElfSearchBar(
-            query = state.searchQuery,
-            onQueryChange = viewModel::onSearchQueryChange,
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-        )
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier
-                .fillMaxSize()
+                .weight(1f, fill = true)
         ) {
-            items(
-                count = state.elfAdventures.size
-            ) { index ->
-                val adventure = state.elfAdventures.getOrNull(index) ?: return@items
+            ElfSearchBar(
+                query = state.searchQuery,
+                onQueryChange = viewModel::onSearchQueryChange,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+            )
 
-                ElfAdventureCard(
-                    adventure = adventure,
-                    onFavoriteClick = {
-                        viewModel.onFavoriteClick(adventure.id)
-                    },
-                    onCardClick = {
-                        onCardClick(
-                            adventure.id
-                        )
-                    }
-                )
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                items(
+                    count = state.elfAdventures.size
+                ) { index ->
+                    val adventure = state.elfAdventures.getOrNull(index) ?: return@items
+
+                    ElfAdventureCard(
+                        adventure = adventure,
+                        onFavoriteClick = {
+                            viewModel.onFavoriteClick(adventure.id)
+                        },
+                        onCardClick = {
+                            onCardClick(
+                                adventure.id
+                            )
+                        }
+                    )
+                }
             }
         }
+
+        ElfBottomBannerAd(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
     }
 }
 

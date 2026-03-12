@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.calleserpis.elfonavidenyo.R
+import com.calleserpis.elfonavidenyo.ui.common.ElfBottomBannerAd
 
 @Composable
 fun IdeasScreen(
@@ -44,130 +45,142 @@ fun IdeasScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .background(MaterialTheme.colorScheme.surfaceContainer),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.5f)
-                .padding(horizontal = 16.dp, vertical = 24.dp),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .weight(1f, fill = true)
         ) {
-            Text(
-                text = stringResource(R.string.ideas_title),
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center
-            )
-
-            OutlinedTextField(
-                value = state.inputText,
-                onValueChange = viewModel::onInputChange,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f, fill = true),
-                minLines = 2,
-                maxLines = 3,
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.ideas_input_placeholder),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            )
-
-            Text(
-                text = if (state.remainingUsesToday > 0) {
-                    stringResource(
-                        id = R.string.ideas_magic_usage_hint,
-                        state.remainingUsesToday
-                    )
-                } else {
-                    stringResource(id = R.string.ideas_magic_usage_exhausted)
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
-            )
-
-            Button(
-                onClick = {
-                    val isOnline = isOnline(context)
-                    viewModel.onMagicClick(isOnline)
-                },
-                enabled = state.remainingUsesToday > 0 && !state.isLoading,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
-
-            ) {
-                Text(text = stringResource(R.string.ideas_button_magic))
-            }
-        }
-
-        if (state.isLoading) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .fillMaxHeight(0.5f)
+                    .padding(horizontal = 16.dp, vertical = 24.dp),
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircularProgressIndicator()
                 Text(
-                    text = stringResource(R.string.ideas_loading_message),
-                    style = MaterialTheme.typography.bodyMedium
+                    text = stringResource(R.string.ideas_title),
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center
                 )
-            }
-        }
 
-        state.errorMessageResId?.let { errorResId ->
-            Text(
-                text = stringResource(id = errorResId),
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                textAlign = TextAlign.Center
-            )
-        }
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(state.ideas) { idea ->
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
+                OutlinedTextField(
+                    value = state.inputText,
+                    onValueChange = viewModel::onInputChange,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f, fill = true),
+                    minLines = 2,
+                    maxLines = 3,
+                    placeholder = {
                         Text(
-                            text = idea.title,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Spacer(modifier = Modifier.padding(top = 4.dp))
-                        Text(
-                            text = idea.description,
+                            text = stringResource(R.string.ideas_input_placeholder),
                             style = MaterialTheme.typography.bodyMedium
                         )
+                    }
+                )
+
+                Text(
+                    text = if (state.remainingUsesToday > 0) {
+                        stringResource(
+                            id = R.string.ideas_magic_usage_hint,
+                            state.remainingUsesToday
+                        )
+                    } else {
+                        stringResource(id = R.string.ideas_magic_usage_exhausted)
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                )
+
+                Button(
+                    onClick = {
+                        val isOnline = isOnline(context)
+                        viewModel.onMagicClick(isOnline)
+                    },
+                    enabled = state.remainingUsesToday > 0 && !state.isLoading,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
+
+                ) {
+                    Text(text = stringResource(R.string.ideas_button_magic))
+                }
+            }
+
+            if (state.isLoading) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    CircularProgressIndicator()
+                    Text(
+                        text = stringResource(R.string.ideas_loading_message),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+
+            state.errorMessageResId?.let { errorResId ->
+                Text(
+                    text = stringResource(id = errorResId),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(state.ideas) { idea ->
+                    Card(
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Text(
+                                text = idea.title,
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.padding(top = 4.dp))
+                            Text(
+                                text = idea.description,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
             }
         }
+
+        ElfBottomBannerAd(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
     }
 }
 
@@ -178,5 +191,3 @@ private fun isOnline(context: Context): Boolean {
     val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
     return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 }
-
-

@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.calleserpis.elfonavidenyo.R
+import com.calleserpis.elfonavidenyo.ui.common.ElfBottomBannerAd
 import com.calleserpis.elfonavidenyo.ui.screens.home.ElfAdventureCard
 import com.calleserpis.elfonavidenyo.ui.screens.home.ElfSearchBar
 
@@ -35,57 +36,69 @@ fun FavouritesScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .background(MaterialTheme.colorScheme.surfaceContainer),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        ElfSearchBar(
-            query = state.searchQuery,
-            onQueryChange = viewModel::onSearchQueryChange,
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-        )
-
-        if (state.elfAdventures.isEmpty()) {
-            Box(
+                .weight(1f, fill = true)
+        ) {
+            ElfSearchBar(
+                query = state.searchQuery,
+                onQueryChange = viewModel::onSearchQueryChange,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.favourites_empty_message),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
-            }
-        } else {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                items(
-                    count = state.elfAdventures.size
-                ) { index ->
-                    val adventure = state.elfAdventures.getOrNull(index) ?: return@items
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+            )
 
-                    ElfAdventureCard(
-                        adventure = adventure,
-                        onFavoriteClick = {
-                            viewModel.onFavoriteClick(adventure.id)
-                        },
-                        onCardClick = {
-                            onCardClick(adventure.id)
-                        }
+            if (state.elfAdventures.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.favourites_empty_message),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
                     )
+                }
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    items(
+                        count = state.elfAdventures.size
+                    ) { index ->
+                        val adventure = state.elfAdventures.getOrNull(index) ?: return@items
+
+                        ElfAdventureCard(
+                            adventure = adventure,
+                            onFavoriteClick = {
+                                viewModel.onFavoriteClick(adventure.id)
+                            },
+                            onCardClick = {
+                                onCardClick(adventure.id)
+                            }
+                        )
+                    }
                 }
             }
         }
+
+        ElfBottomBannerAd(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
     }
 }
 

@@ -34,6 +34,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.calleserpis.elfonavidenyo.R
+import com.calleserpis.elfonavidenyo.ui.common.ElfBottomBannerAd
 import com.calleserpis.elfonavidenyo.ui.screens.home.ElfTagRow
 import com.calleserpis.elfonavidenyo.ui.screens.home.FavoriteButton
 
@@ -53,70 +54,80 @@ fun DetailScreen(
     val context = LocalContext.current
 
     Column(
-
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxSize()
             .background(
                 MaterialTheme.colorScheme.surfaceContainer
             )
-            .padding(horizontal = 20.dp)
-            .verticalScroll(rememberScrollState())
-
     ) {
-        Spacer(modifier = Modifier.padding(4.dp))
-        if (adventure != null) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(320.dp)
-
-            ) {
-                AsyncImage(
-                    model = remember(adventure.imageRes) {
-                        context.resources.getIdentifier(
-                            adventure.imageRes,  // "elf_snow"
-                            "drawable",
-                            context.packageName
-                        )
-                    },
-                    contentDescription = adventure.title,
-                    contentScale = ContentScale.Crop,
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier
+                .weight(1f, fill = true)
+                .padding(horizontal = 20.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.padding(4.dp))
+            if (adventure != null) {
+                Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
-                    placeholder = painterResource(R.drawable.default_elf),
-                    error = painterResource(R.drawable.default_elf),
-                    onError = {
-                        Log.e("CoilError", "Error cargando imagen:")
-                    }
+                        .fillMaxWidth()
+                        .height(320.dp)
+
+                ) {
+                    AsyncImage(
+                        model = remember(adventure.imageRes) {
+                            context.resources.getIdentifier(
+                                adventure.imageRes,  // "elf_snow"
+                                "drawable",
+                                context.packageName
+                            )
+                        },
+                        contentDescription = adventure.title,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
+                        placeholder = painterResource(R.drawable.default_elf),
+                        error = painterResource(R.drawable.default_elf),
+                        onError = {
+                            Log.e("CoilError", "Error cargando imagen:")
+                        }
+                    )
+                    FavoriteButton(
+                        isFavorite = adventure.isFavorite,
+                        onClick = {
+                            viewModel.onEvent(DetailEvent.OnFavoriteClick(adventure.id))
+                        },
+
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(8.dp)
+                    )
+                }
+                Text(
+                    text = state.adventure!!.title,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.ExtraBold
                 )
-                FavoriteButton(
-                    isFavorite = adventure.isFavorite,
-                    onClick = {
-                        viewModel.onEvent(DetailEvent.OnFavoriteClick(adventure.id))
-                    },
+                HorizontalDivider(color = Color(0xFFEEEEEE))
 
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(8.dp)
+                ElfTagRow(tags = state.adventure!!.tags)
+
+                Text(
+                    text = state.adventure!!.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.DarkGray,
+                    lineHeight = 22.sp
                 )
             }
-            Text(
-                text = state.adventure!!.title,
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.ExtraBold
-            )
-            HorizontalDivider(color = Color(0xFFEEEEEE))
-
-            ElfTagRow(tags = state.adventure!!.tags)
-
-            Text(
-                text = state.adventure!!.description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.DarkGray,
-                lineHeight = 22.sp
-            )
         }
+
+        ElfBottomBannerAd(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
     }
 }
