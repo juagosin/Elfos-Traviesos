@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.calleserpis.elfonavidenyo.data.local.AppDatabase
 import com.calleserpis.elfonavidenyo.data.repository.ElfRepositoryImpl
@@ -19,7 +18,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)
