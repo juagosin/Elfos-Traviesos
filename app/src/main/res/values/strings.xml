@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ElfoNavidenyo</string>
+    <string name="app_name">Elfos Navideños</string>
 
     <!-- Bottom bar -->
     <string name="bottom_bar_home">Home</string>
@@ -7,7 +7,7 @@
     <string name="bottom_bar_ideas">Ideas</string>
 
     <!-- Top app bar -->
-    <string name="top_app_bar_title">Elf Adventures</string>
+    <string name="top_app_bar_title">Elfos navideños</string>
 
     <!-- Home screen -->
     <string name="home_favorite_remove">Remove from favorites</string>

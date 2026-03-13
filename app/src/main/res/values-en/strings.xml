@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Christmas Elf Adventures</string>
+
+    <!-- Bottom bar -->
+    <string name="bottom_bar_home">Home</string>
+    <string name="bottom_bar_favourites">Favourites</string>
+    <string name="bottom_bar_ideas">Ideas</string>
+
+    <!-- Top app bar -->
+    <string name="top_app_bar_title">Elf Adventures</string>
+
+    <!-- Home screen -->
+    <string name="home_favorite_remove">Remove from favourites</string>
+    <string name="home_favorite_add">Add to favourites</string>
+    <string name="home_search_placeholder">Search adventures...</string>
+
+    <!-- Ideas screen -->
+    <string name="ideas_title">Brainstorming</string>
+    <string name="ideas_input_placeholder">Write the materials you have available and tap the magic button so the elves can suggest new ideas.</string>
+    <string name="ideas_button_magic">Magic</string>
+    <string name="ideas_loading_message">Waiting for response...</string>
+    <string name="ideas_magic_usage_hint">The elves can only use their magic 3 times a day. You have %1$d left today.</string>
+    <string name="ideas_magic_usage_exhausted">The elves´ magic has run out for today, please try again tomorrow.</string>
+
+    <!-- Favourites screen -->
+    <string name="favourites_empty_message">There are no favourite items yet.</string>
+
+    <!-- Ideas errors -->
+    <string name="ideas_error_no_connection">No internet connection. Connect to use the elves´ magic.</string>
+    <string name="ideas_error_empty_materials">First write down the materials you have at home.</string>
+    <string name="ideas_error_no_ideas">I couldn´t get ideas at this moment. Please try again.</string>
+    <string name="ideas_error_firebase_not_configured">It seems that Firebase is not properly configured. Make sure you have added the google-services.json file to the app module and configured Firebase in the project.</string>
+    <string name="ideas_error_model_not_found">The configured Gemini model is not available for your project. Check in the Firebase console that ´gemini-2.5-flash´ is enabled in Firebase AI Logic.</string>
+    <string name="ideas_error_generic">An error occurred while requesting ideas from the elves. Check your connection and try again.</string>
+</resources>
