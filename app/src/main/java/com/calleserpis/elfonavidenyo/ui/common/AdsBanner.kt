@@ -24,8 +24,7 @@ fun ElfBottomBannerAd(
             AdView(context).apply {
                 // Banner estándar (320x50) adaptado al ancho
                 setAdSize(AdSize.BANNER)
-                // ID de prueba oficial para banners de Google
-                adUnitId = "ca-app-pub-3940256099942544/6300978111"
+                adUnitId = "ca-app-pub-5233740529251048/8133181703"
                 loadAd(AdRequest.Builder().build())
             }
         }
